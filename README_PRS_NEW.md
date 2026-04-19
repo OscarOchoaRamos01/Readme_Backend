@@ -1,48 +1,44 @@
-# 💼 Descripción General de los PRS (Institución y Patrimonio)
+# 💼 Guía de Estándares para Microservicios
 
-## 📑 PROYECTO PRS01: SISTEMA DE GESTIÓN INSTITUCIONAL (SCHOOL)
+## 📑 CONTEXTOS DE REFERENCIA
 
-**Gestión Integral de Instituciones Educativas y Recursos**
+### 🏢 PRS1: SIGEI (Sistema de Gestión Educativa Inicial)
 
-### 📋 Descripción del Proyecto
+**Gestión de Notas y Asistencia para Colegios Iniciales**
 
-El **Sistema de Gestión Institucional** es una plataforma diseñada para digitalizar y centralizar la administración de instituciones educativas. Este microservicio (`vg-ms-institution-management`) permite la gestión eficiente de locales, aulas, horarios y clasificaciones institucionales, asegurando una estructura organizativa sólida y escalable.
-
-### 🎯 Objetivos del Sistema
-
-- **Centralización**: Administrar múltiples sedes y aulas desde un único punto.
-- **Optimización**: Mejor gestionamiento de horarios y recursos físicos.
-- **Escalabilidad**: Soportar el crecimiento de la red educativa de manera modular.
+El proyecto **SIGEI** está diseñado para gestionar de manera integral los procesos administrativos y educativos en colegios de nivel inicial. A través de una arquitectura de microservicios escalable de forma horizontal, SIGEI facilita la administración de matrícula, gestión de aulas, control de asistencia, manejo de eventos (días festivos, incidentes como huaicos), gestión académica, atención psicológica, y registro de incidencias entre los alumnos. Además, permite una gestión eficiente de las instituciones educativas, todo con un enfoque modular que asegura un alto nivel de flexibilidad y crecimiento.
 
 ---
 
-## 📑 PROYECTO PRS02: SISTEMA DE GESTIÓN PATRIMONIAL (ASSETS)
+### 📦 PRS2: SIPREB (Sistema de Gestión de Bienes Patrimoniales)
 
 **Control y Seguimiento de Bienes Institucionales**
 
-### 📋 Descripción del Proyecto
+El **Sistema de Gestión de Bienes Patrimonial (SIPREB)** es una solución integral para la administración del ciclo de vida de los bienes institucionales, que permite registrar, controlar y dar seguimiento a los activos desde su alta hasta su baja formal. Automatiza procesos clave como la depreciación, gestiona movimientos y transferencias entre áreas, y asegura la trazabilidad completa de cada bien mediante auditoría y control de estados. Su objetivo principal es garantizar la transparencia, el orden patrimonial y el cumplimiento normativo en la gestión de activos institucionales.
 
-El **Sistema de Gestión Patrimonial** (`vg-ms-patrimonioservice`) es una solución especializada en el ciclo de vida de los activos institucionales. Desde el registro inicial y el cálculo de depreciaciones automáticas hasta el proceso formal de baja de bienes, el sistema garantiza la transparencia y el cumplimiento normativo en la gestión de la propiedad.
+#### **🎯 Objetivos de SIPREB**
 
-### 🎯 Objetivos del Sistema
-
-- **Trazabilidad**: Conocer la ubicación y responsable de cada bien en tiempo real.
-- **Automatización**: Eliminar cálculos manuales de depreciación mediante algoritmos lineales reactivos.
-- **Control**: Gestionar procesos de baja con resoluciones y dictámenes técnicos integrados.
+- 📍 **Trazabilidad**: Conocer la ubicación y responsable de cada bien en tiempo real.
+- 🤖 **Automatización**: Eliminar cálculos manuales mediante algoritmos reactivos.
+- 🔒 **Control**: Gestionar procesos de baja con resoluciones y dictámenes técnicos.
+- 📊 **Transparencia**: Auditoría completa del ciclo de vida de los activos.
 
 ---
+
+
 
 ## 📋 Tabla de Contenidos
 
 1. [Resumen Ejecutivo](#-resumen-ejecutivo)
 2. [Tecnologías y Frameworks](#-tecnologías-y-frameworks)
-3. [Arquitectura del Sistema](#-arquitectura-del-sistema)
+3. [Arquitectura de los Contextos](#-arquitectura-de-los-contextos)
 4. [Estructura del Proyecto](#-estructura-del-proyecto)
 5. [Estándares de Codificación](#estándares-de-codificación)
-6. [Seguridad y Autenticación](#-seguridad-y-autenticación)
-7. [Comunicación entre Microservicios](#-comunicación-entre-microservicios)
-8. [Gestión de Datos](#-gestión-de-datos)
-9. [Infraestructura y Despliegue](#-infraestructura-y-despliegue)
+6. [Códigos de Estado HTTP](#-códigos-de-estado-http)
+7. [Seguridad y Autenticación](#-seguridad-y-autenticación)
+8. [Comunicación entre Microservicios](#-comunicación-entre-microservicios)
+9. [Gestión de Datos](#-gestión-de-datos)
+10. [Infraestructura y Despliegue](#-infraestructura-y-despliegue)
 
 ---
 
@@ -53,7 +49,7 @@ El **Sistema de Gestión Patrimonial** (`vg-ms-patrimonioservice`) es una soluci
 - **Patrón**: Microservicios con Arquitectura Hexagonal (Domain-Driven Design Lite).
 - **Comunicación**: HTTP/REST Reactivo (Spring WebFlux) + WebClient.
 - **Seguridad**: OAuth2 Resource Server con JWT (Keycloak/Spring Security).
-- **Base de Datos**: PostgreSQL (Neon) con persistencia reactiva (R2DBC).
+- **Base de Datos**: PostgreSQL (VPS) con persistencia reactiva (R2DBC).
 - **Lenguaje**: Java 17 con Spring Boot 3.5.x.
 - **Infraestructura**: Docker + Docker Compose para orquestación local.
 
@@ -64,7 +60,7 @@ El **Sistema de Gestión Patrimonial** (`vg-ms-patrimonioservice`) es una soluci
 ### Backend Technologies Stack
 
 #### **Core Framework**
-- **Spring Boot**: `3.5.11` (PRS1) / `3.5.6` (PRS2)
+- **Spring Boot**: `3.5.x` (Versión estandarizada)
 - **Java**: `17` (LTS)
 - **Maven**: Gestor de dependencias y automatización de builds.
 
@@ -81,10 +77,10 @@ El **Sistema de Gestión Patrimonial** (`vg-ms-patrimonioservice`) es una soluci
 </dependency>
 ```
 
-#### **Integraciones y Resiliencia**
-- **Cloudinary**: Gestión de archivos y medios (PRS1).
-- **Resilience4j**: Manejo de fallos con Circuit Breaker (PRS1).
-- **Dotenv**: Gestión de variables de entorno (PRS2).
+#### **Integraciones y Resiliencia (Opcional)**
+- **Cloudinary / S3**: Gestión de archivos y medios.
+- **Resilience4j**: Manejo de fallos con Circuit Breaker.
+- **Dotenv**: Gestión de variables de entorno.
 
 ---
 
@@ -149,9 +145,26 @@ public class AssetRestController {
 
 ---
 
+## 🚥 Códigos de Estado HTTP
+
+El sistema utiliza los siguientes códigos de estado estándar para las respuestas de la API:
+
+| Código | Estado | Descripción |
+| :--- | :--- | :--- |
+| **200** | `OK` | La solicitud se procesó correctamente y se devuelve la información solicitada. |
+| **201** | `Created` | El recurso ha sido creado exitosamente. |
+| **204** | `No Content` | La solicitud se procesó con éxito pero no devuelve contenido. |
+| **400** | `Bad Request` | La solicitud es inválida o contiene errores de validación. |
+| **401** | `Unauthorized` | No se proporcionaron credenciales válidas o el token ha expirado. |
+| **403** | `Forbidden` | El usuario no tiene permisos suficientes para realizar la acción. |
+| **404** | `Not Found` | El recurso solicitado no pudo ser encontrado en el sistema. |
+| **500** | `Internal Server Error` | Se produjo un error inesperado en el servidor. |
+
+---
+
 ## 🔐 Seguridad y Autenticación
 
-Ambos PRS implementan seguridad basada en **OAuth2 Resource Server** para proteger los recursos institucionales.
+Los microservicios implementan seguridad basada en **OAuth2 Resource Server** para proteger los recursos de cada contexto.
 
 - **Mecanismo**: Validación de tokens JWT emitidos por Keycloak.
 - **Filtros**: Interceptores de seguridad para propagar el contexto de autenticación en llamadas internas.
@@ -177,7 +190,7 @@ Se utiliza comunicación síncrona reactiva para interactuar con otros servicios
 
 ---
 
-## 🏗️ Arquitectura del Sistema
+## 🏗️ Arquitectura de los Contextos
 
 Se aplica **Arquitectura Hexagonal (Puertos y Adaptadores)** para desacoplar el núcleo del negocio de los detalles técnicos.
 
@@ -223,16 +236,5 @@ COPY --from=builder /app/target/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
 ```
 
-### Endpoints Principales
 
-#### **PRS 1: Institución**
-- `GET /api/v1/institutions`: Gestión de instituciones.
-- `GET /api/v1/classrooms`: Gestión de aulas.
-
-#### **PRS 2: Patrimonio**
-- `GET /api/v1/assets`: Inventario de bienes.
-- `POST /api/v1/depreciations`: Cálculo de depreciación.
-- `POST /api/v1/asset-disposals`: Flujo de bajas.
-
----
-> **Nota**: Este documento ha sido generado siguiendo los estándares unificados de documentación de microservicios para los proyectos PRS de Valle Grande.
+> **Nota**: Este documento ha sido generado siguiendo los estándares unificados de documentación de microservicios de Valle Grande.
